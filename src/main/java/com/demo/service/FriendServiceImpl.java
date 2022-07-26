@@ -19,7 +19,7 @@ public class FriendServiceImpl implements FriendService {
 	@Override
 	public Friend saveFriend(Friend entity) {
 
-			return friendDao.save(entity);
+		return friendDao.save(entity);
 	}
 
 	@Override
@@ -39,12 +39,12 @@ public class FriendServiceImpl implements FriendService {
 	public boolean updateFriend(Friend entity, String Id) {
 
 		Optional<Friend> opt = friendDao.findById(Id);
-		if(opt == null) {
-			throw new NoSuchFrieneExistException("No friend found with Id "+Id+" to update Friend Details");
-		}else {
+		if (opt == null) {
+			throw new NoSuchFrieneExistException("No friend found with Id " + Id + " to update Friend Details");
+		} else {
 			Friend fri = opt.get();
 			fri.setMobileNum(entity.getMobileNum());
-			fri.setCollage(entity.getCollage());
+			fri.setCollege(entity.getCollege());
 			fri.setName(entity.getName());
 			friendDao.save(fri);
 			return true;
@@ -55,11 +55,11 @@ public class FriendServiceImpl implements FriendService {
 	public boolean deleteFriend(String Id) {
 
 		Optional<Friend> opt = friendDao.findById(Id);
-		
-		if(opt.isPresent()) {
+
+		if (opt.isPresent()) {
 			friendDao.deleteById(Id);
 			return true;
-		} else{
+		} else {
 			throw new NoSuchFrieneExistException("Friend not found to remove it from database!!!");
 		}
 	}

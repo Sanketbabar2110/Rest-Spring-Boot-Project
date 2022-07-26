@@ -20,23 +20,23 @@ public class Friend {
 	private long mobileNum;
 
 	@Column(name = "College_Name")
-	private String collage;
+	private String college;
 
 	public Friend() {
 		super();
 	}
 
-	public Friend(String id, String name, long mobileNum, String collage) {
+	public Friend(String id, String name, long mobileNum, String college) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.mobileNum = mobileNum;
-		this.collage = collage;
+		this.college = college;
 	}
 
 	@Override
 	public String toString() {
-		return "Friend [id=" + id + ", name=" + name + ", mobileNum=" + mobileNum + ", collage=" + collage + "]";
+		return "Friend [id=" + id + ", name=" + name + ", mobileNum=" + mobileNum + ", college=" + college + "]";
 	}
 
 	public String getId() {
@@ -63,11 +63,12 @@ public class Friend {
 		this.mobileNum = mobileNum;
 	}
 
-	public String getCollage() {
-		return collage;
+	public String getCollege() {
+		return college;
 	}
 
-	public void setCollage(String collage) {
-		this.collage = collage;
+	public void setCollege(String college) {
+		this.college = college;
 	}
+
 }
