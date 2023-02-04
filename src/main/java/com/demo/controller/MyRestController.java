@@ -1,6 +1,9 @@
 package com.demo.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.entity.Friend;
@@ -18,18 +22,27 @@ import com.demo.service.FriendService;
 @RequestMapping("/friends")
 public class MyRestController {
 	
+	private static final Logger logger = LogManager.getLogger(MyRestController.class);
+	
 	@Autowired
 	FriendService service;
 	
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Friend entity){
-		return ResponseEntity.ok(service.saveFriend(entity));
+		
+		logger.trace("Request body from request : "+entity);
+		Friend saveFriend = service.saveFriend(entity);
+		
+		logger.info("The entity saved successfully to the database : "+saveFriend);
+		return ResponseEntity.ok(saveFriend);
+		
 	}
 	
 	@GetMapping("/{Id}")
-	public ResponseEntity<?> getById(@PathVariable("Id")String Id){
+	@ResponseStatus(code = HttpStatus.ACCEPTED)
+	public Friend getById(@PathVariable("Id")String Id){
 		
-		return ResponseEntity.ok(service.getFriendById(Id));
+		return service.getFriendById(Id);
 	}
 	
 	@GetMapping("/all")

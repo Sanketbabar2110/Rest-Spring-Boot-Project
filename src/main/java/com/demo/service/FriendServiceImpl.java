@@ -3,9 +3,12 @@ package com.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.controller.MyRestController;
 import com.demo.dao.FriendDao;
 import com.demo.entity.Friend;
 import com.demo.exception.NoSuchFrieneExistException;
@@ -15,15 +18,22 @@ public class FriendServiceImpl implements FriendService {
 
 	@Autowired
 	FriendDao friendDao;
+	
+	private static final Logger logger = LogManager.getLogger(MyRestController.class);
+
+	public FriendServiceImpl(FriendDao dao) {
+		this.friendDao=dao;
+	}
 
 	@Override
 	public Friend saveFriend(Friend entity) {
-
+		
+		logger.info("Inside FriendServiceImpl save method!!!!");
 		return friendDao.save(entity);
 	}
 
 	@Override
-	public List<Friend> getAllFriends() {
+	public List<Friend> getAllFriends () {
 
 		return friendDao.findAll();
 	}
